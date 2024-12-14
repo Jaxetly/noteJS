@@ -1,0 +1,29 @@
+.rounded-left-0 {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.rounded-right-0 {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.form-control.min-vh-25 {
+	min-height: 25vh;
+}
+
+.corner-button {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    
+    display: flex; /*центрация иконки*/
+    justify-content: center;
+    align-items: center;
+}
+
+.hide {
+	display: none;
+}
