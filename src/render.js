@@ -1,5 +1,8 @@
 import { deleteNoteFromLocalStorage } from './storage.js';
 
+import Watch from './melanke-watchjs.js';
+const { watch } = Watch;
+
 const createExpandButton = (cardContent, content, maxLength) => {
     const expandButton = document.createElement('button');
     expandButton.innerText = 'Развернуть';
@@ -45,9 +48,6 @@ const createNoteDOM = (title, content) => {
 }
 
 const createButton = (state, title, content) => {
-    const noteTitle = document.getElementById('noteTitle');
-    const noteInput = document.getElementById('noteInput');
-
     const buttons = document.createElement('div');
     buttons.className = 'd-flex row m-0';
 
@@ -57,8 +57,8 @@ const createButton = (state, title, content) => {
     buttons.appendChild(editButton);
 
     editButton.addEventListener('click', () => {
-        noteTitle.value = title;
-        noteInput.value = content;
+        state.titleInput = title;
+        state.noteInput = content;
         deleteNoteFromLocalStorage(state, {title, content});
         renderNotes(state);
     });

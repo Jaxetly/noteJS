@@ -1,32 +1,32 @@
-import { getThemeFromStorage } from './storage.js';
+import { getThemeFromStorage, setThemeToStorage } from './storage.js';
+
+import Watch from './melanke-watchjs.js';
+const { watch } = Watch;
 
 export const initTheme = (state) => {
     const btnLight = document.querySelector('.btn-light');
     const btnDark = document.querySelector('.btn-dark');
 
-    state.theme = getThemeFromStorage();
-
-    if (state.theme === 'dark') {
-        btnDark.classList.add('hide');
-        btnLight.classList.remove('hide');
-        document.documentElement.setAttribute('data-bs-theme', 'dark');
-    }
-
     btnLight.addEventListener('click', () => {
-        btnLight.classList.add('hide');
-        btnDark.classList.remove('hide');
-
-        document.documentElement.removeAttribute('data-bs-theme');
-        localStorage.setItem('theme', 'light');
         state.theme = 'light';
     });
 
     btnDark.addEventListener('click', () => {
-        btnDark.classList.add('hide');
-        btnLight.classList.remove('hide');
-
-        document.documentElement.setAttribute('data-bs-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
         state.theme = 'dark';
     });
+
+    watch(state, 'theme', () => {
+        setThemeToStorage(state.theme);
+        document.documentElement.setAttribute('data-bs-theme', state.theme);
+
+        if (state.theme === 'light') {
+            btnLight.classList.add('hide');
+            btnDark.classList.remove('hide');
+        } else {
+            btnDark.classList.add('hide');
+            btnLight.classList.remove('hide');
+        }
+    });
+
+    state.theme = getThemeFromStorage();
 }
