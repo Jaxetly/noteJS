@@ -1,3 +1,9 @@
+﻿pre {
+  font-size: 1rem;
+  white-space: pre-wrap;
+  margin: 0;
+}
+
 .rounded-left-0 {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;

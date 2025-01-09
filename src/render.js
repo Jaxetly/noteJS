@@ -1,4 +1,4 @@
-import { deleteNoteFromLocalStorage } from './storage.js';
+import { deleteNote } from './storage.js';
 
 import Watch from './melanke-watchjs.js';
 const { watch } = Watch;
@@ -31,7 +31,7 @@ const createNoteDOM = (title, content) => {
     cardTitle.innerText = title;
     noteDOM.appendChild(cardTitle);
 
-    const cardContent = document.createElement('p');
+    const cardContent = document.createElement('pre');
     cardContent.className = 'card-text m-0';
     const maxLength = 150;
 
@@ -59,8 +59,7 @@ const createButton = (state, title, content) => {
     editButton.addEventListener('click', () => {
         state.titleInput = title;
         state.noteInput = content;
-        deleteNoteFromLocalStorage(state, {title, content});
-        renderNotes(state);
+        deleteNote(state, {title, content});
     });
 
     const deleteButton = document.createElement('button');
@@ -70,8 +69,7 @@ const createButton = (state, title, content) => {
 
     deleteButton.addEventListener('click', () => {
         if (confirm(`Вы точно хотите удалить заметку "${title}"?`)) {
-            deleteNoteFromLocalStorage(state, {title, content});
-            renderNotes(state);
+            deleteNote(state, {title, content});
         }
     });
     return buttons;

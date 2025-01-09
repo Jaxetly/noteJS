@@ -1,4 +1,4 @@
-import { renderNotes, renderError } from './render.js';
+import { renderError } from './render.js';
 
 //POST запрос
 const rowNotesServer = async (notes) => {
@@ -33,7 +33,6 @@ export const getNotesFromServer = (state) => {
         .then(data => {
             state.notes = JSON.parse(data.data);
             console.log('Заметки успешно получены с сервера:', data);
-            renderNotes(state); // Отрисовка
         })
         .catch(error => {
             renderError(`Ошибка при получении заметок с сервера: ${error}`);

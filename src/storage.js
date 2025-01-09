@@ -1,12 +1,14 @@
 import { sendNotesToServer } from './api.js';
 
-export const deleteNoteFromLocalStorage = (state, deletableNote) => {
+export const deleteNote = (state, deletableNote) => {
     let notes = state.notes;
     notes = notes.filter(note => note.title !== deletableNote.title || note.content !== deletableNote.content);
     state.notes = notes;
-    setNotesToLocalStorage(notes);
-    sendNotesToServer(state.notes);
 }
+
+export const getNotesFromLocalStorage = () => {
+	return JSON.parse(localStorage.getItem('notes')) || [];
+};
 
 export const setNotesToLocalStorage = (notes) => {
     localStorage.setItem('notes', JSON.stringify(notes));

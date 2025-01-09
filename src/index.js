@@ -1,5 +1,5 @@
 import { sendNotesToServer, getNotesFromServer } from './api.js';
-import { deleteNoteFromLocalStorage, setNotesToLocalStorage } from './storage.js';
+import { getNotesFromLocalStorage, setNotesToLocalStorage } from './storage.js';
 import { renderNotes, addNoteToDOM } from './render.js';
 import { initTheme } from './theme.js';
 
@@ -39,19 +39,27 @@ const addFormListener = (state) => {
     watch(state, 'noteInput', () => {
     	noteInput.value = state.noteInput;
     });
+
+    watch(state, 'notes', () => {
+        setNotesToLocalStorage(state.notes);
+        sendNotesToServer(state.notes);
+        renderNotes(state);
+    });
 }
 
 export const init = () => {
     let state = {
-        notes: JSON.parse(localStorage.getItem('notes')) || [],
+        notes: [],
         theme: 'light',
         titleInput: "",
         noteInput: "",
     }
 
     addFormListener(state); //Обработчик события для формы
+
+    state.notes = getNotesFromLocalStorage();
     
-    getNotesFromServer(state); //Имитация получения данных с сервера, там и рендерим
+    getNotesFromServer(state); //Имитация получения данных с сервера
 
     initTheme(state); //Светлая и темная тема
 }
