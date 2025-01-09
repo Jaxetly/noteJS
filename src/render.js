@@ -1,7 +1,11 @@
-import { deleteNote } from './storage.js';
-
 import Watch from './melanke-watchjs.js';
 const { watch } = Watch;
+
+export const deleteNote = (state, deletableNote) => {
+    let notes = state.notes;
+    notes = notes.filter(note => note.title !== deletableNote.title || note.content !== deletableNote.content);
+    state.notes = notes;
+}
 
 const createExpandButton = (cardContent, content, maxLength) => {
     const expandButton = document.createElement('button');

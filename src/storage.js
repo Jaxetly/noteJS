@@ -1,11 +1,5 @@
 import { sendNotesToServer } from './api.js';
 
-export const deleteNote = (state, deletableNote) => {
-    let notes = state.notes;
-    notes = notes.filter(note => note.title !== deletableNote.title || note.content !== deletableNote.content);
-    state.notes = notes;
-}
-
 export const getNotesFromLocalStorage = () => {
 	return JSON.parse(localStorage.getItem('notes')) || [];
 };
